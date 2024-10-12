@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <title>
+      Clash Royale - <% if (!locals.player){ %> Stats <% } else { %> <%=
+      player.main.name %> <% } %>
+    </title>
+    <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
+  </head>
+  <body>
+    <h1>Enter your player tag here</h1>
+    <div class="form-container">
+      <form method="POST" action="/player-info">
+        <input type="text" id="playerTag" name="playerTag" required />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <% if (locals.player) { %>
+    <h2>Hey <%= player.main.name %>!</h2>
+    <div class="player-information">
+      <div class="main">
+        <p>Trophies: <%= player.main.trophies %></p>
+        <p>Best Trophies: <%= player.main.bestTrophies %></p>
+        <p>Arena: <%= player.main.arena %></p>
+        <p>League: <%= player.main.league %></p>
+      </div>
+
+      <div class="games">
+        <p>Wins: <%= player.games.wins %></p>
+        <p>Losses: <%= player.games.losses %></p>
+        <p>Battle Count: <%= player.games.battleCount %></p>
+        <p>Three Crown Wins: <%= player.games.threeCrownWins %></p>
+      </div>
+
+      <div class="donations">
+        <p>Donations: <%= player.donations.donations %></p>
+        <p>Donations Received: <%= player.donations.donationsReceived %></p>
+        <p>Total Donations: <%= player.donations.totalDonations %></p>
+      </div>
+
+      <% for (let i = 0; i < chests.length; i += 3) { %>
+      <div class="chest">
+        <% if (chests[i]) { %>
+        <div class="chest-img">
+          <img
+            width="50px"
+            src="https://cdn.statsroyale.com/v2/chests/<%= chests[i].name %>.png"
+            alt="<%= chests[i].name %>"
+          />
+          <p><%= chests[i].index + 1%></p>
+        </div>
+        <% } %> <% if (chests[i + 1]) { %>
+        <div class="chest-img">
+          <img
+            width="50px"
+            src="https://cdn.statsroyale.com/v2/chests/<%= chests[i + 1].name %>.png"
+            alt="<%= chests[i + 1].name %>"
+          />
+          <p><%= chests[i + 1].index + 1 %></p>
+        </div>
+        <% } %> <% if (chests[i + 2]) { %>
+        <div class="chest-img">
+          <img
+            width="50px"
+            src="https://cdn.statsroyale.com/v2/chests/<%= chests[i + 2].name %>.png"
+            alt="<%= chests[i + 2].name %>"
+          />
+          <p><%= chests[i + 2].index + 1%></p>
+        </div>
+        <% } %>
+      </div>
+      <% } %>
+
+      <div class="nav">
+        <a target="_blank" href="/clans?playerTag=<%= playerTag %>">Clan Info</a>
+      </div>
+    </div>
+    <% } %>
+  </body>
+</html>

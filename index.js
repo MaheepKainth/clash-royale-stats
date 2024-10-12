@@ -179,5 +179,5 @@ app.post("/player-info", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Index is running on port ${port}`);
+  console.log(`Index running on port ${port}`);
 });
